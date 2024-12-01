@@ -11,6 +11,38 @@ class MatrixOperator(ABC):
         raise NotImplementedError
 
 
+class SharrOperator(MatrixOperator):
+    def x_matrix(self, img, x, y):
+        """
+        Применение оператора Щарра для нахождения Gx
+        Матрица выглядит следующим образом:
+        -3 0 3
+        -10 0 10
+        -3 0 3
+        :param img: Исходное изображение
+        :param x: Координата пикселя по X
+        :param y: Координата пикселя по Y
+        :return:
+        """
+        return -3 * int(img[x - 1][y - 1]) - 10 * int(img[x][y - 1]) - 3 * int(img[x + 1][y - 1]) + \
+            3 * int(img[x - 1][y + 1]) + 10 * int(img[x][y + 1]) + 3 * int(img[x + 1][y + 1])
+
+    def y_matrix(self, img, x, y):
+        """
+        Применение оператора Щарра для нахождения Gy
+        Матрица выглядит следующим образом:
+        -3 -10 -3
+        0 0 0
+        3 10 3
+        :param img: Исходное изображение
+        :param x: Координата пикселя по X
+        :param y: Координата пикселя по Y
+        :return:
+        """
+        return -3 * int(img[x - 1][y - 1]) - 10 * int(img[x - 1][y]) - 3 * int(img[x - 1][y + 1]) + \
+            3 * int(img[x + 1][y - 1]) + 10 * int(img[x + 1][y]) + 3 * int(img[x + 1][y + 1])
+
+
 class RobertsOperator(MatrixOperator):
 
     def x_matrix(self, img, x, y):
@@ -24,7 +56,7 @@ class RobertsOperator(MatrixOperator):
         :param y: Координата пикселя по Y
         :return:
         """
-        return img[x][y] - int(img[x+1][y-1])
+        return img[x][y] - int(img[x + 1][y - 1])
 
     def y_matrix(self, img, x, y):
         """
@@ -37,7 +69,7 @@ class RobertsOperator(MatrixOperator):
         :param y: Координата пикселя по Y
         :return:
         """
-        return img[x+1][y] - int(img[x][y+1])
+        return img[x + 1][y] - int(img[x][y + 1])
 
 
 class SobelOperator(MatrixOperator):
