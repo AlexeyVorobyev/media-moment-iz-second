@@ -16,8 +16,8 @@ class ImageShowKaniAlgorythmEnum(enum.Enum):
     SUPPRESSED = 4
     FILTERED = 5
 
-class KaniAlgorythm:
 
+class KaniAlgorythm:
     _image_size: (int, int)
     _deviation: float
     _kernel_size: int
@@ -30,8 +30,9 @@ class KaniAlgorythm:
             image_size: (int, int) = (500, 500),
             deviation: float = 1,
             kernel_size: int = 5,
-            image_show_list: list[ImageShowKaniAlgorythmEnum] =None,
-            threshold_dividers: (int, int) = (5, 5)
+            image_show_list: list[ImageShowKaniAlgorythmEnum] = None,
+            threshold_dividers: (int, int) = (5, 5),
+            matrix_operator: MatrixOperator = SobelOperator(),
     ):
         """
         Инициализация класса
@@ -51,7 +52,7 @@ class KaniAlgorythm:
         self._image_size = image_size
         self._deviation = deviation
         self._kernel_size = kernel_size
-        self._matrix_operator = SobelOperator()
+        self._matrix_operator = matrix_operator
         self._threshold_dividers = threshold_dividers
 
     def __preprocess_image(self, path_to_image: str) -> np.ndarray:
@@ -66,7 +67,8 @@ class KaniAlgorythm:
         if ImageShowKaniAlgorythmEnum.GRAYSCALE in self._image_show_list:
             cv2.imshow("GrayScale", img)
 
-        img = cv2.GaussianBlur(img, (self._kernel_size, self._kernel_size), sigmaX=self._deviation, sigmaY=self._deviation)
+        img = cv2.GaussianBlur(img, (self._kernel_size, self._kernel_size), sigmaX=self._deviation,
+                               sigmaY=self._deviation)
 
         if ImageShowKaniAlgorythmEnum.GAUSSIAN in self._image_show_list:
             cv2.imshow("Gaussian", img)

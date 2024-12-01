@@ -11,6 +11,35 @@ class MatrixOperator(ABC):
         raise NotImplementedError
 
 
+class RobertsOperator(MatrixOperator):
+
+    def x_matrix(self, img, x, y):
+        """
+        Применение оператора Робертса для нахождения Gx
+        Матрица выглядит следующим образом:
+        1 0
+        0 -1
+        :param img: Исходное изображение
+        :param x: Координата пикселя по X
+        :param y: Координата пикселя по Y
+        :return:
+        """
+        return img[x][y] - int(img[x+1][y-1])
+
+    def y_matrix(self, img, x, y):
+        """
+        Применение оператора Робертса для нахождения Gy
+        Матрица выглядит следующим образом:
+        0 1
+        -1 0
+        :param img: Исходное изображение
+        :param x: Координата пикселя по X
+        :param y: Координата пикселя по Y
+        :return:
+        """
+        return img[x+1][y] - int(img[x][y+1])
+
+
 class SobelOperator(MatrixOperator):
 
     def x_matrix(self, img, x, y):
