@@ -3,20 +3,16 @@ from kani_algorytm import KaniAlgorythm, ImageShowKaniAlgorythmEnum
 
 images = [
     {
-        "path": "resources/original/apple.png",
-        "name": "kani_apple",
+        "path": "resources/original/image-1.jpg",
+        "name": "kanni_sobel_samokat_1",
     },
     {
-        "path": "resources/original/jeleps.png",
-        "name": "kani_jeleps",
+        "path": "resources/original/image-2.jpeg",
+        "name": "kanni_sobel_samokat_2",
     },
     {
-        "path": "resources/original/linux.png",
-        "name": "kani_linux",
-    },
-    {
-        "path": "resources/original/person.png",
-        "name": "kani_person",
+        "path": "resources/original/image-3.jpg",
+        "name": "kanni_sobel_samokat_3",
     }
 ]
 

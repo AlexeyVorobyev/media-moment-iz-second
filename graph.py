@@ -4,20 +4,16 @@ from graph_algorytm import GraphAlgorythm, ImageShowGraphAlgorythmEnum
 
 images = [
     {
-        "path": "resources/original/apple.png",
-        "name": "graph_apple",
+        "path": "resources/original/image-1.jpg",
+        "name": "graph_samokat_1",
     },
     {
-        "path": "resources/original/jeleps.png",
-        "name": "graph_jeleps",
+        "path": "resources/original/image-2.jpeg",
+        "name": "graph_samokat_2",
     },
     {
-        "path": "resources/original/linux.png",
-        "name": "graph_linux",
-    },
-    {
-        "path": "resources/original/person.png",
-        "name": "graph_person",
+        "path": "resources/original/image-3.jpg",
+        "name": "graph_samokat_3",
     }
 ]
 

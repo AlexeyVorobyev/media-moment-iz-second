@@ -225,10 +225,8 @@ class KaniAlgorythm:
         :return:
         """
         max_gradient = np.max(grads_len)
-        print(max_gradient)
         lower_bound = max_gradient / self._threshold_dividers[0]
         upper_bound = max_gradient / self._threshold_dividers[1]
-        print(f'Нижняя граница {lower_bound}, Верхняя: {upper_bound}')
         filtered_img = np.zeros(img.shape)
 
         for i in range(0, img.shape[0]):
