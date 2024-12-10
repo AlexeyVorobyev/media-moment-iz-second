@@ -1,6 +1,6 @@
 import cv2
 
-from graph_algorithm import GraphAlgorythm
+from graph_algorithm import GraphAlgorithm
 
 images = [
     {
@@ -32,7 +32,7 @@ contrasts = [
 for deviation in deviations:
     for size_component_threshold in size_component_thresholds:
         for contrast in contrasts:
-            graphAlgo = GraphAlgorythm(
+            graph_alg = GraphAlgorithm(
                 image_size=(500, 500),
                 image_show_list=[
                     # ImageShowGraphAlgorythmEnum.CONTRAST
@@ -44,7 +44,7 @@ for deviation in deviations:
             )
 
             for image in images:
-                processed_image = graphAlgo.process_image_with_return(image["path"])
+                processed_image = graph_alg.process_image_with_return(image["path"])
 
                 cv2.imwrite(
                     f"resources/graph/{image["name"]}_gauss_{deviation}_size_component_threshold_{size_component_threshold}_contrast{contrast}.png",

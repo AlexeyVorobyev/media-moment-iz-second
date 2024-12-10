@@ -12,7 +12,7 @@ class ImageMode(enum.Enum):
     FILTERED = 5
 
 
-class GraphAlgorythm:
+class GraphAlgorithm:
     _image_size: (int, int)
     _deviation: float
     _kernel_size: int
