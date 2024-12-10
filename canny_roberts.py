@@ -1,19 +1,19 @@
 import cv2
-from kani_algorytm import KaniAlgorythm, ImageShowKaniAlgorythmEnum
-from matrix_operators import RobertsOperator, SharrOperator
+from canny_algorithm import CannyAlgorithm
+from matrix_operators import RobertsOperator
 
 images = [
     {
         "path": "resources/original/image-1.jpg",
-        "name": "kanni_sharr_samokat_1",
+        "name": "kanni_roberts_samokat_1",
     },
     {
         "path": "resources/original/image-2.jpeg",
-        "name": "kanni_sharr_samokat_2",
+        "name": "kanni_roberts_samokat_2",
     },
     {
         "path": "resources/original/image-3.jpg",
-        "name": "kanni_sharr_samokat_3",
+        "name": "kanni_roberts_samokat_3",
     }
 ]
 
@@ -27,20 +27,20 @@ threshold_dividers = [
 
 for deviation in deviations:
     for threshold_divider in threshold_dividers:
-        kaniAlgo = KaniAlgorythm(
+        canny_alg = CannyAlgorithm(
             image_size=(500, 500),
             image_show_list=[],
             kernel_size=7,
-            matrix_operator=SharrOperator(),
+            matrix_operator=RobertsOperator(),
             deviation=deviation,
             threshold_dividers=threshold_divider,
         )
 
         for image in images:
-            processed_image, _ = kaniAlgo.process_image_with_return(image["path"])
+            processed_image, _ = canny_alg.process_image_with_return(image["path"])
 
             cv2.imwrite(
-                f"resources/kani_sharr/{image["name"]}_gauss_{deviation}_threshold_{threshold_divider[0]}_{threshold_divider[1]}.png",
+                f"resources/kani_roberts/{image["name"]}_gauss_{deviation}_threshold_{threshold_divider[0]}_{threshold_divider[1]}.png",
                 processed_image
             )
 

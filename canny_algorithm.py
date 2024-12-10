@@ -8,7 +8,7 @@ import numpy as np
 from matrix_operators import MatrixOperator, SobelOperator
 
 
-class ImageShowKaniAlgorythmEnum(enum.Enum):
+class ImageMode(enum.Enum):
     GRAYSCALE = 0
     GAUSSIAN = 1
     GRAD_LENGTH = 2
@@ -17,11 +17,11 @@ class ImageShowKaniAlgorythmEnum(enum.Enum):
     FILTERED = 5
 
 
-class KaniAlgorythm:
+class CannyAlgorithm:
     _image_size: (int, int)
     _deviation: float
     _kernel_size: int
-    _image_show_list: list[ImageShowKaniAlgorythmEnum]
+    _image_show_list: list[ImageMode]
     _matrix_operator: MatrixOperator
     _threshold_dividers: (int, int)
 
@@ -30,7 +30,7 @@ class KaniAlgorythm:
             image_size: (int, int) = (500, 500),
             deviation: float = 1,
             kernel_size: int = 5,
-            image_show_list: list[ImageShowKaniAlgorythmEnum] = None,
+            image_show_list: list[ImageMode] = None,
             threshold_dividers: (int, int) = (5, 5),
             matrix_operator: MatrixOperator = SobelOperator(),
     ):
@@ -44,8 +44,8 @@ class KaniAlgorythm:
         """
         if image_show_list is None:
             self._image_show_list = [
-                ImageShowKaniAlgorythmEnum.GRAYSCALE,
-                ImageShowKaniAlgorythmEnum.GAUSSIAN,
+                ImageMode.GRAYSCALE,
+                ImageMode.GAUSSIAN,
             ]
         else:
             self._image_show_list = image_show_list
@@ -64,13 +64,13 @@ class KaniAlgorythm:
         img = cv2.imread(path_to_image, cv2.IMREAD_GRAYSCALE)
         img = cv2.resize(img, self._image_size)
 
-        if ImageShowKaniAlgorythmEnum.GRAYSCALE in self._image_show_list:
+        if ImageMode.GRAYSCALE in self._image_show_list:
             cv2.imshow("GrayScale", img)
 
         img = cv2.GaussianBlur(img, (self._kernel_size, self._kernel_size), sigmaX=self._deviation,
                                sigmaY=self._deviation)
 
-        if ImageShowKaniAlgorythmEnum.GAUSSIAN in self._image_show_list:
+        if ImageMode.GAUSSIAN in self._image_show_list:
             cv2.imshow("Gaussian", img)
 
         return img
@@ -264,21 +264,21 @@ class KaniAlgorythm:
 
         grads_lengths = self.__get_grad_length(img, grads=gradients)
 
-        if ImageShowKaniAlgorythmEnum.GRAD_LENGTH in self._image_show_list:
+        if ImageMode.GRAD_LENGTH in self._image_show_list:
             cv2.imshow("Grad lengths", cv2.resize(grads_lengths, self._image_size))
             print('Матрица значений длин градиентов:')
             print(grads_lengths)
 
         corners = self.__get_corners(img, gradients)
 
-        if ImageShowKaniAlgorythmEnum.GRAD_ANGLE in self._image_show_list:
+        if ImageMode.GRAD_ANGLE in self._image_show_list:
             cv2.imshow("Grad angles", cv2.resize(corners, self._image_size))
             print('Матрица значений углов градиентов:')
             print(corners)
 
         suppressed_img = self.__not_max_suppress(grads_lengths, corners)
 
-        if ImageShowKaniAlgorythmEnum.SUPPRESSED in self._image_show_list:
+        if ImageMode.SUPPRESSED in self._image_show_list:
             cv2.imshow("Suppressed", suppressed_img)
 
         result_img = self.__double_threshold_filter(
@@ -287,7 +287,7 @@ class KaniAlgorythm:
             grads_lengths
         )
 
-        if ImageShowKaniAlgorythmEnum.FILTERED in self._image_show_list:
+        if ImageMode.FILTERED in self._image_show_list:
             cv2.imshow("Filtered", result_img)
 
         cv2.waitKey(0)
@@ -308,21 +308,21 @@ class KaniAlgorythm:
 
         grads_lengths = self.__get_grad_length(img, grads=gradients)
 
-        if ImageShowKaniAlgorythmEnum.GRAD_LENGTH in self._image_show_list:
+        if ImageMode.GRAD_LENGTH in self._image_show_list:
             cv2.imshow("Grad lengths", cv2.resize(grads_lengths, self._image_size))
             print('Матрица значений длин градиентов:')
             print(grads_lengths)
 
         corners = self.__get_corners(img, gradients)
 
-        if ImageShowKaniAlgorythmEnum.GRAD_ANGLE in self._image_show_list:
+        if ImageMode.GRAD_ANGLE in self._image_show_list:
             cv2.imshow("Grad angles", cv2.resize(corners, self._image_size))
             print('Матрица значений углов градиентов:')
             print(corners)
 
         suppressed_img = self.__not_max_suppress(grads_lengths, corners)
 
-        if ImageShowKaniAlgorythmEnum.SUPPRESSED in self._image_show_list:
+        if ImageMode.SUPPRESSED in self._image_show_list:
             cv2.imshow("Suppressed", suppressed_img)
 
         max_gradient = np.max(grads_lengths)

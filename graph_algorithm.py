@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 
-class ImageShowGraphAlgorythmEnum(enum.Enum):
+class ImageMode(enum.Enum):
     GRAYSCALE = 0
     GAUSSIAN = 1
     CONTRAST = 2
@@ -37,7 +37,7 @@ class GraphAlgorythm:
             image_size: (int, int) = (500, 500),
             deviation: float = 1,
             kernel_size: int = 5,
-            image_show_list: list[ImageShowGraphAlgorythmEnum] = None,
+            image_show_list: list[ImageMode] = None,
             contrast: int = 10,
             size_component_threshold=100
     ):
@@ -50,8 +50,8 @@ class GraphAlgorythm:
         """
         if image_show_list is None:
             self._image_show_list = [
-                ImageShowGraphAlgorythmEnum.GRAYSCALE,
-                ImageShowGraphAlgorythmEnum.GAUSSIAN,
+                ImageMode.GRAYSCALE,
+                ImageMode.GAUSSIAN,
             ]
         else:
             self._image_show_list = image_show_list
@@ -70,13 +70,13 @@ class GraphAlgorythm:
         img = cv2.imread(path_to_image, cv2.IMREAD_GRAYSCALE)
         img = cv2.resize(img, self._image_size)
 
-        if ImageShowGraphAlgorythmEnum.GRAYSCALE in self._image_show_list:
+        if ImageMode.GRAYSCALE in self._image_show_list:
             cv2.imshow("GrayScale", img)
 
         img = cv2.GaussianBlur(img, (self._kernel_size, self._kernel_size), sigmaX=self._deviation,
                                sigmaY=self._deviation)
 
-        if ImageShowGraphAlgorythmEnum.GAUSSIAN in self._image_show_list:
+        if ImageMode.GAUSSIAN in self._image_show_list:
             cv2.imshow("Gaussian", img)
 
         return img
@@ -190,7 +190,7 @@ class GraphAlgorythm:
         # Получаем матрицу контрастности
         matrix_contrast = self._get_matrix_contrast(img)
 
-        if ImageShowGraphAlgorythmEnum.CONTRAST in self._image_show_list:
+        if ImageMode.CONTRAST in self._image_show_list:
             cv2.imshow("Contrast", matrix_contrast)
 
         # Компоненты связностей контрастных пикселей.

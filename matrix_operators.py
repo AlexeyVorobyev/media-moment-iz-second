@@ -3,15 +3,15 @@ from abc import ABC, abstractmethod
 
 class MatrixOperator(ABC):
     @abstractmethod
-    def x_matrix(self, img, x, y):
-        raise NotImplementedError
+    def x_matrix(self, img, x, y) -> int:
+        ...
 
     @abstractmethod
-    def y_matrix(self, img, x, y):
-        raise NotImplementedError
+    def y_matrix(self, img, x, y) -> int:
+        ...
+    
 
-
-class SharrOperator(MatrixOperator):
+class ScharrOperator(MatrixOperator):
     def x_matrix(self, img, x, y):
         """
         Применение оператора Щарра для нахождения Gx

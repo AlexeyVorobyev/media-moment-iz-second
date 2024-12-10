@@ -1,6 +1,6 @@
 import cv2
 
-from graph_algorytm import GraphAlgorythm, ImageShowGraphAlgorythmEnum
+from graph_algorithm import GraphAlgorythm
 
 images = [
     {

@@ -1,5 +1,5 @@
 import cv2
-from kani_algorytm import KaniAlgorythm, ImageShowKaniAlgorythmEnum
+from canny_algorithm import CannyAlgorithm
 
 images = [
     {
@@ -26,7 +26,7 @@ threshold_dividers = [
 
 for deviation in deviations:
     for threshold_divider in threshold_dividers:
-        kaniAlgo = KaniAlgorythm(
+        canny_alg = CannyAlgorithm(
             image_size=(500, 500),
             image_show_list=[],
             kernel_size=7,
@@ -35,7 +35,7 @@ for deviation in deviations:
         )
 
         for image in images:
-            processed_image, _ = kaniAlgo.process_image_with_return(image["path"])
+            processed_image, _ = canny_alg.process_image_with_return(image["path"])
 
             cv2.imwrite(
                 f"resources/kani_sobel/{image["name"]}_gauss_{deviation}_threshold_{threshold_divider[0]}_{threshold_divider[1]}.png",
